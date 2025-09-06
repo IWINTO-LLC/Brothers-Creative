@@ -1,0 +1,135 @@
+name: brothers_creative
+description: Brothers Creative - E-commerce Application
+publish_to: "none"
+version: 1.0.0+1
+environment:
+  sdk: ^3.7.0
+dependencies:
+  # UI & Animation
+  animated_text_kit: ^4.2.3
+  cached_network_image: ^3.3.1
+  carousel_slider: ^5.1.1
+  chart_sparkline: ^1.1.1
+  flutter_svg: ^2.0.9
+  lottie: ^3.3.1
+  shimmer: ^3.0.0
+  smooth_page_indicator: ^1.1.0
+  string_to_color: ^2.0.0
+  syncfusion_flutter_charts: ^30.2.4
+  
+  # Navigation & UI Components
+  easy_stepper: ^0.8.5+1
+  dropdown_button2: ^2.3.9
+  flutter_slidable: ^4.0.0
+  flutter_zoom_drawer: ^3.2.0
+  full_screen_image: ^2.0.0
+  photo_view: ^0.15.0
+  readmore: ^3.0.0
+  zoom_widget: ^2.0.1
+  
+  # Forms & Input
+  datetime_picker_formfield_new: ^2.1.0
+  flutter_otp_text_field: ^1.1.1
+  flutter_phone_number_field: ^1.0.1
+  #flutter_paytabs_bridge: ^2.6.14
+  
+  # Media & Files
+  file_picker: ^10.2.0
+  image_picker: ^1.0.8
+  flutter_sound: ^9.28.0
+  network_to_file_image: ^7.0.0
+  
+  # Location & Maps
+  flutter_map: ^8.1.1
+  geocoding: ^4.0.0
+  geolocator: ^14.0.1
+  latlong2: ^0.9.1
+  
+  # State Management & Storage
+  get: ^4.7.2
+  get_storage: ^2.1.1
+  
+  # Authentication
+  google_sign_in: ^6.2.2
+  sign_in_with_apple: ^6.1.1
+  
+  # Firebase Core & Services
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
+  firebase_storage: ^12.0.0
+  firebase_messaging: ^15.0.0
+  cloud_firestore: ^5.0.0
+  firebase_analytics: ^11.0.0
+  
+  # Network & HTTP
+  http: ^1.2.1
+  connectivity_plus: ^6.1.4
+  
+  # Utilities
+  country_picker: ^2.0.21
+  iconsax: ^0.0.8
+  intl:
+  logger: ^2.0.2+1
+  path_provider: ^2.1.2
+  path: ^1.9.0
+  cross_file: ^0.3.3+8
+  percent_indicator: ^4.2.3
+  permission_handler: ^11.3.1
+  share_plus: ^7.2.2
+  url_launcher: ^6.1.5
+  
+  # Flutter Core
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  
+  # Notifications
+  flutter_local_notifications: ^19.2.1
+  
+
+  
+  # Icons
+  cupertino_icons: ^1.0.8
+  roundcheckbox: ^2.0.5
+  google_fonts: ^6.3.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/on_boarding/
+    - assets/images/banners/
+    - assets/icons/
+    - assets/images/products/
+    - assets/images/brands/
+    - assets/images/users/
+    - assets/images/language/
+    - assets/logos/
+    - assets/images/lottie/
+
+# Flutter Launcher Icons Configuration
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logos/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/logos/icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/logos/icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/logos/icon.png"
