@@ -15,17 +15,12 @@ class TBillingAmountSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'subtotal',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            TProductPriceText(price: subTotal.toString())
+            Text('subtotal', style: Theme.of(context).textTheme.bodyMedium),
+            TProductPriceText(price: subTotal.toString()),
             //Text('\$', style: Theme.of(context).textTheme.bodyLarge)
           ],
         ),
-        const SizedBox(
-          height: TSizes.spaceBtWItems / 2,
-        ),
+        const SizedBox(height: TSizes.spaceBtWItems / 2),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -33,21 +28,16 @@ class TBillingAmountSection extends StatelessWidget {
               'Shipping free',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            TProductPriceText(price: 0.toString())
+            TProductPriceText(price: 0.toString()),
             //Text('\$6.0', style: Theme.of(context).textTheme.bodyLarge)
           ],
         ),
-        const SizedBox(
-          height: TSizes.spaceBtWItems / 2,
-        ),
+        const SizedBox(height: TSizes.spaceBtWItems / 2),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Order Total',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            TProductPriceText(price: subTotal.toString())
+            Text('Order Total', style: Theme.of(context).textTheme.bodyMedium),
+            TProductPriceText(price: subTotal.toString()),
             // Text('\$230.0', style: Theme.of(context).textTheme.bodyLarge)
           ],
         ),

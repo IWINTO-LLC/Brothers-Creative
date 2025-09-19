@@ -12,7 +12,9 @@ class TAppTheme {
   TAppTheme._();
   static ThemeData lightThemeArabic = ThemeData(
     useMaterial3: true,
-    fontFamily: GoogleFonts.tajawal().fontFamily, // 'IBMPlexSansArabic',//AvenirArabic',
+    fontFamily:
+        GoogleFonts.tajawal()
+            .fontFamily, // 'IBMPlexSansArabic',//AvenirArabic',
     brightness: Brightness.light,
     primaryColor: const Color(0xFF0099ff),
     primaryColorLight: const Color(0xFF0099ff),

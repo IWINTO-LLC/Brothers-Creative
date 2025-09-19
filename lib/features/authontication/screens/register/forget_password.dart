@@ -6,7 +6,6 @@ import 'package:brothers_creative/utils/helpers/helper_functions.dart';
 import 'package:brothers_creative/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 class ForgetPassword extends StatelessWidget {
   const ForgetPassword({super.key});

@@ -5,10 +5,9 @@ import 'package:brothers_creative/features/authontication/screens/onboarding/onb
 import 'package:brothers_creative/features/authontication/screens/register/verify_email.dart';
 import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:brothers_creative/navigation_menu.dart';
-import 'package:brothers_creative/utils/constants/color.dart';
+import 'package:brothers_creative/utils/helpers/system_ui_helper.dart';
 import 'package:brothers_creative/utils/storage/storage_utility.dart';
 import 'package:brothers_creative/utils/theme/theme.dart';
-import 'package:brothers_creative/utils/helpers/system_ui_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

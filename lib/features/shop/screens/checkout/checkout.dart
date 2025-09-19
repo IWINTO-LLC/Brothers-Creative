@@ -109,11 +109,11 @@ class CheckoutScreen extends StatelessWidget {
                         //   width: 15,
                         // ),
                         TProductPriceText(
+                          price: subtotal.toString(),
                           color:
                               THelperFunctions.isDarkMode(context)
                                   ? Colors.black
                                   : Colors.white,
-                          price: subtotal.toString(),
                         ),
                       ],
                     ),

@@ -15,7 +15,7 @@ class ProductAddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEg = Get.locale?.languageCode == 'en';
+    //final  = Get.locale?.languageCode == 'en';
     final controller = CartController.instance;
     return InkWell(
       onTap: () {

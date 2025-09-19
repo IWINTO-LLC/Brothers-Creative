@@ -19,8 +19,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'payment_screen.dart';
 
 class TSingleProjectScreen extends StatelessWidget {
-  const TSingleProjectScreen({Key? key, required this.project})
-    : super(key: key);
+  const TSingleProjectScreen({super.key, required this.project});
   final ProjectModel project;
 
   @override

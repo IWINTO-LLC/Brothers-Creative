@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class TRoundedContainer extends StatelessWidget {
   const TRoundedContainer({
-    Key? key,
+    super.key,
     this.width,
     this.height,
     this.radius,
@@ -15,7 +15,7 @@ class TRoundedContainer extends StatelessWidget {
     this.margin,
     this.enableShadow = false,
     this.backgroundColor = TColors.white,
-  }) : super(key: key);
+  });
 
   final double? width;
   final double? height;

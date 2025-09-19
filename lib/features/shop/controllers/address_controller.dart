@@ -8,6 +8,7 @@ import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:brothers_creative/utils/constants/image_strings.dart';
 import 'package:brothers_creative/utils/constants/sizes.dart';
 import 'package:brothers_creative/utils/helpers/cloud_helper_function.dart';
+import 'package:brothers_creative/utils/helpers/helper_functions.dart';
 import 'package:brothers_creative/utils/loader/loaders.dart';
 import 'package:brothers_creative/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +51,9 @@ class AddressController extends GetxController {
   Future<void> setCurrentLocation() async {
     final permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever)
+        permission == LocationPermission.deniedForever) {
       return;
+    }
 
     final position = await Geolocator.getCurrentPosition();
     latitude.value = position.latitude;
@@ -221,10 +223,20 @@ class AddressController extends GetxController {
                         bottom: 32,
                       ),
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        ),
                         onPressed:
                             () => Get.to(() => const AddNewAddressScreen()),
+
                         child: Text(
                           AppLocalizations.of(context)!.addNewAddress,
+                          style: Theme.of(context).textTheme.bodyMedium!.apply(
+                            color:
+                                THelperFunctions.isDarkMode(context)
+                                    ? Colors.black
+                                    : Colors.white,
+                          ),
                         ),
                       ),
                     ),

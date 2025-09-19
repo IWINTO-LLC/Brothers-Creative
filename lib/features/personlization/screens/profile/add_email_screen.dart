@@ -1,11 +1,8 @@
 import 'package:brothers_creative/common/widgets/appbar/appbar.dart';
-import 'package:brothers_creative/utils/constants/color.dart';
-import 'package:brothers_creative/utils/constants/sizes.dart';
-import 'package:brothers_creative/utils/helpers/helper_functions.dart';
 import 'package:brothers_creative/data/repositoies/authentication/authentication_repository.dart';
+import 'package:brothers_creative/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 class AddEmailScreen extends StatefulWidget {
   const AddEmailScreen({super.key});

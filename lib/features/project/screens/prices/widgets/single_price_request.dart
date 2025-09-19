@@ -12,7 +12,7 @@ import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class TSinglePriceScreen extends StatelessWidget {
-  const TSinglePriceScreen({Key? key, required this.price}) : super(key: key);
+  const TSinglePriceScreen({super.key, required this.price});
   final AskRequestModel price;
   @override
   Widget build(BuildContext context) {

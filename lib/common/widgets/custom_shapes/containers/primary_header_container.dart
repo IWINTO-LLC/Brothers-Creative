@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import "package:brothers_creative/common/widgets/custom_shapes/containers/circuler_container.dart";
 import "package:brothers_creative/common/widgets/custom_shapes/curved_edges/curved_edge_widget.dart";
 import "package:brothers_creative/utils/constants/color.dart";
 import "package:brothers_creative/utils/helpers/helper_functions.dart";

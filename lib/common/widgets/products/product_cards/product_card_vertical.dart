@@ -36,11 +36,16 @@ class TProductCardVertical extends StatelessWidget {
         ),
         child: SizedBox(
           height: 210,
+
           child: Column(
             children: [
               TRoundedContainer(
-                enableShadow: true,
+                showBorder: true,
 
+                borderColor:
+                    dark
+                        ? TColors.dark.withValues(alpha: 0.5)
+                        : TColors.light.withValues(alpha: 0.5),
                 radius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -48,6 +53,7 @@ class TProductCardVertical extends StatelessWidget {
                   bottomRight: Radius.zero,
                 ),
                 height: THelperFunctions.screenwidth() / 2,
+                width: 200,
                 child: TProductImageSliderMini(product: product),
               ),
 

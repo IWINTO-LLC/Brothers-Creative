@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 
 class TermsScreen extends StatelessWidget {
   const TermsScreen({
-    Key? key,
+    super.key,
     required this.data,
     required this.title,
-  }) : super(key: key);
+  });
   final String data;
   final String title;
   @override

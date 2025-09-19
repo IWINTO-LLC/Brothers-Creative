@@ -3,16 +3,13 @@ import 'package:brothers_creative/common/widgets/texts/product_price_text.dart';
 import 'package:brothers_creative/features/shop/controllers/product/cart_controller.dart';
 import 'package:brothers_creative/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:brothers_creative/features/shop/screens/checkout/checkout.dart';
+import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:brothers_creative/navigation_menu.dart';
 import 'package:brothers_creative/utils/constants/color.dart';
-import 'package:brothers_creative/utils/constants/image_strings.dart';
 import 'package:brothers_creative/utils/constants/sizes.dart';
 import 'package:brothers_creative/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:brothers_creative/l10n/app_localizations.dart';
-import 'package:iconsax/iconsax.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

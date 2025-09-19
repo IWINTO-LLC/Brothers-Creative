@@ -9,8 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TBlogItem extends StatelessWidget {
-  const TBlogItem({Key? key, required this.blog, required this.onTap})
-      : super(key: key);
+  const TBlogItem({super.key, required this.blog, required this.onTap});
 
   final VoidCallback onTap;
   final BlogModel blog;

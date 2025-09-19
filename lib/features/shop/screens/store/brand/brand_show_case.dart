@@ -1,13 +1,11 @@
 import 'package:brothers_creative/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:brothers_creative/common/widgets/images/custom_cache_image.dart';
-import 'package:brothers_creative/common/widgets/shimmers/shimmer.dart';
 import 'package:brothers_creative/features/shop/models/brand_model.dart';
 import 'package:brothers_creative/features/shop/screens/store/brand/brand_card.dart';
 import 'package:brothers_creative/features/shop/screens/store/brand/brand_product.dart';
 import 'package:brothers_creative/utils/constants/color.dart';
 import 'package:brothers_creative/utils/constants/sizes.dart';
 import 'package:brothers_creative/utils/helpers/helper_functions.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -12,6 +12,7 @@ class AllProductController extends GetxController {
   final repository = ProductRepository.instance;
   final RxString selectedSortOption = 'Name'.obs;
   final RxList<ProductModel> products = <ProductModel>[].obs;
+  final RxBool isGridView = true.obs; // true للمصفوفة، false للقائمة
 
   Future<List<ProductModel>> fetchProductsByQuery(Query? query) async {
     try {
@@ -63,7 +64,22 @@ class AllProductController extends GetxController {
   }
 
   void assignProducts(List<ProductModel> p) {
-    products.assignAll(p);
-    sortProducts('Name');
+    // تجنب إعادة التعيين إذا كانت المنتجات نفسها
+    if (products.length != p.length || !_areProductsEqual(products, p)) {
+      products.assignAll(p);
+      sortProducts(selectedSortOption.value);
+    }
+  }
+
+  bool _areProductsEqual(List<ProductModel> list1, List<ProductModel> list2) {
+    if (list1.length != list2.length) return false;
+    for (int i = 0; i < list1.length; i++) {
+      if (list1[i].id != list2[i].id) return false;
+    }
+    return true;
+  }
+
+  void toggleViewMode() {
+    isGridView.value = !isGridView.value;
   }
 }

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class TSettingMenuTile extends StatelessWidget {
   const TSettingMenuTile({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.subTitle,
     this.iconColor = Colors.black,
     this.onTap,
     this.trailing,
-  }) : super(key: key);
+  });
   final IconData icon;
   final Color iconColor;
   final String title, subTitle;

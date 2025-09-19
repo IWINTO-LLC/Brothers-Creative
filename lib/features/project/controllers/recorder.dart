@@ -52,6 +52,7 @@ class RecorderController extends GetxController {
     await recorder.openRecorder();
   }
 
+  @override
   void dispose() {
     recorder.closeRecorder();
     super.dispose();

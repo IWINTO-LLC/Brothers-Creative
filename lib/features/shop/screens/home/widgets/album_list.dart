@@ -1,13 +1,11 @@
 import 'package:brothers_creative/common/widgets/images/custom_cache_image.dart';
 import 'package:brothers_creative/common/widgets/shimmers/home_album_shimmer.dart';
-import 'package:brothers_creative/common/widgets/shimmers/shimmer.dart';
 import 'package:brothers_creative/features/gallery/controller/album_controller.dart';
 import 'package:brothers_creative/features/gallery/models/album_model.dart';
 import 'package:brothers_creative/features/shop/screens/home/widgets/album_photos.dart';
 import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:brothers_creative/utils/constants/sizes.dart';
 import 'package:brothers_creative/utils/helpers/helper_functions.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,18 +25,9 @@ class TAlbumList extends StatelessWidget {
         right: TSizes.defaultSpace,
       ),
       child: Obx(() {
-        albums.assignAll(controller.allalbums);
-
-        // Debug: طباعة عدد الألبومات
-        if (kDebugMode) {
-          print('🔍 AlbumList Debug:');
-          print('   Loading: ${controller.isLoading.value}');
-          print('   Albums Count: ${albums.length}');
-          if (albums.isNotEmpty) {
-            print('   First Album: ${albums.first.name}');
-            print('   First Album Image: ${albums.first.image}');
-          }
-        }
+        albums.assignAll(
+          controller.allalbums.where((album) => album.isFeature).toList(),
+        );
 
         if (controller.isLoading.value) return const THomeAlbumShimmer();
         if (albums.isEmpty) {
@@ -102,16 +91,6 @@ class TAlbumList extends StatelessWidget {
                         ),
                       ),
 
-                      // SizedBox(
-                      //   height: TSizes.spaceBtWItems / 4,
-                      // ),
-                      // TRoundedContainer(
-                      //     radius: BorderRadius.circular(20),
-                      //     width: THelperFunctions.screenwidth() -
-                      //         TSizes.defaultSpace * 2,
-                      //     backgroundColor:
-                      //         TColors.black.withValues(alpha: 0.3),
-                      //     height: THelperFunctions.screenwidth() / 1.7),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

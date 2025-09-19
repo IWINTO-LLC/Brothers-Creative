@@ -14,9 +14,11 @@ import 'package:flutter/material.dart';
 import 'add_remove_button.dart';
 
 class TCartItem extends StatelessWidget {
-  const TCartItem(
-      {Key? key, required this.cartItem, this.showAddRemoveButtons = false})
-      : super(key: key);
+  const TCartItem({
+    Key? key,
+    required this.cartItem,
+    this.showAddRemoveButtons = false,
+  }) : super(key: key);
   final CartItemModel cartItem;
   final bool? showAddRemoveButtons;
   @override
@@ -36,9 +38,7 @@ class TCartItem extends StatelessWidget {
           height: 120,
           padding: const EdgeInsets.all(0),
         ),
-        const SizedBox(
-          width: TSizes.spaceBtWItems,
-        ),
+        const SizedBox(width: TSizes.spaceBtWItems),
         Expanded(
           child: SizedBox(
             height: 120,
@@ -66,18 +66,26 @@ class TCartItem extends StatelessWidget {
                           // // ),
                           TProductQuantityWithAddRemoveButtons(
                             quantity: cartItem.quantity,
-                            add: () =>
-                                CartController.instance.addOneToCart(cartItem),
-                            remove: () => CartController.instance
-                                .removeOneFromCart(cartItem),
+                            add:
+                                () => CartController.instance.addOneToCart(
+                                  cartItem,
+                                ),
+                            remove:
+                                () => CartController.instance.removeOneFromCart(
+                                  cartItem,
+                                ),
                           ),
                         ],
                       ),
                       TProductPriceText(
-                          color: TColors.black,
-                          isLarg: false,
-                          price: (cartItem.price * cartItem.quantity)
-                              .toStringAsFixed(1))
+                        color:
+                            THelperFunctions.isDarkMode(context)
+                                ? Colors.white
+                                : Colors.black,
+                        isLarg: false,
+                        price: (cartItem.price * cartItem.quantity)
+                            .toStringAsFixed(1),
+                      ),
                     ],
                   ),
 
@@ -85,7 +93,7 @@ class TCartItem extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

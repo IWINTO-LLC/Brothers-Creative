@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 class TProfileMenu extends StatelessWidget {
   const TProfileMenu({
-    Key? key,
+    super.key,
     required this.onPress,
     required this.title,
     required this.value,
     this.icon = Icons.keyboard_arrow_right,
-  }) : super(key: key);
+  });
   final IconData icon;
   final VoidCallback onPress;
   final String title, value;

@@ -19,7 +19,6 @@ void main() async {
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-  // إعدادات SystemUI ثابتة - سيتم تحديثها لاحقاً حسب النمط
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

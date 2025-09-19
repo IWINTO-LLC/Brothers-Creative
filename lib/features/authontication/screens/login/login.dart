@@ -20,9 +20,10 @@ class LoginScreen extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
 
     return Directionality(
-      textDirection: Get.locale?.languageCode == 'en'
-          ? TextDirection.ltr
-          : TextDirection.rtl,
+      textDirection:
+          Get.locale?.languageCode == 'en'
+              ? TextDirection.ltr
+              : TextDirection.rtl,
       child: Scaffold(
         // appBar: AppBar(),
         // // appBar: TAppBar(
@@ -41,34 +42,26 @@ class LoginScreen extends StatelessWidget {
                       height: 70,
                       width: 120,
                       image: AssetImage(
-                          dark ? TImages.wordWhite : TImages.wordBlack),
+                        dark ? TImages.wordWhite : TImages.wordBlack,
+                      ),
                       color: dark ? Colors.white : TColors.black,
                     ),
                   ),
-                  const SizedBox(
-                    height: TSizes.lg,
-                  ),
+                  const SizedBox(height: TSizes.lg),
                   Text(
                     AppLocalizations.of(context)!.wellcomeBack,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
-                  const SizedBox(
-                    height: TSizes.sm,
-                  ),
-                
-                  //Form
+                  const SizedBox(height: TSizes.sm),
 
+                  //Form
                   const TLoginForm(),
-                  const SizedBox(
-                    height: TSizes.spaceBtWItems,
-                  ),
+                  const SizedBox(height: TSizes.spaceBtWItems),
                   TFormDivider(
                     dividerText: AppLocalizations.of(context)!.orSignUpWith,
                   ),
-                  const SizedBox(
-                    height: TSizes.spaceBtWItems,
-                  ),
-                  const TSocialButtons()
+                  const SizedBox(height: TSizes.spaceBtWItems),
+                  const TSocialButtons(),
                 ],
               ),
             ),

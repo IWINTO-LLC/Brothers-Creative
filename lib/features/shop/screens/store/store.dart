@@ -67,16 +67,20 @@ class StoreScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: TSizes.spaceBtWItems),
+                        // بحث المنتجات
                         TSearchContainer(
-                          text: AppLocalizations.of(context)!.storeSearch,
+                          text: AppLocalizations.of(context)!.searchProducts,
                           showBorder: true,
                           padding: EdgeInsets.zero,
                           icon: Iconsax.search_normal,
                           showBackground: false,
-                          isSearchButton: true,
-                          onTap: () {
-                            // الانتقال إلى صفحة البحث عند الضغط على مربع البحث
-                            Get.to(() => const SearchResultsScreen());
+                          isSearchField: true,
+                          onChanged: (query) {
+                            if (query.trim().isNotEmpty) {
+                              Get.to(
+                                () => SearchResultsScreen(initialQuery: query),
+                              );
+                            }
                           },
                         ),
                         const SizedBox(height: TSizes.spaceBtWsections),

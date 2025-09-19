@@ -39,8 +39,8 @@ class TVerticalImageText extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: TRoundedContainer(
-                width: 80,
-                height: 80,
+                width: 85,
+                height: 85,
                 showBorder: true,
                 borderColor:
                     THelperFunctions.isDarkMode(context)
@@ -48,15 +48,17 @@ class TVerticalImageText extends StatelessWidget {
                         : TColors.lightgrey,
                 enableShadow:
                     THelperFunctions.isDarkMode(context) ? false : true,
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(1),
                 radius: BorderRadius.circular(100),
-                child: CustomCaChedNetworkImage(
-                  width: 65,
-                  height: 65,
-                  url: image,
-                  fit: BoxFit.contain,
-                  enableShadow: false,
-                  raduis: BorderRadius.circular(0),
+                child: ClipOval(
+                  child: CustomCaChedNetworkImage(
+                    width: 65,
+                    height: 65,
+                    url: image,
+                    fit: BoxFit.contain,
+                    enableShadow: false,
+                    raduis: BorderRadius.circular(0),
+                  ),
                 ),
               ),
             ),

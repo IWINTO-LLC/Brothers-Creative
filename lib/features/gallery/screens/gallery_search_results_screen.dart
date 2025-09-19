@@ -1,39 +1,38 @@
 import 'package:brothers_creative/common/widgets/appbar/appbar.dart';
 import 'package:brothers_creative/common/widgets/custom_shapes/containers/search_container.dart';
-import 'package:brothers_creative/common/widgets/layout/grid_layout.dart';
 import 'package:brothers_creative/common/widgets/loaders/animation_loading.dart';
-import 'package:brothers_creative/common/widgets/products/product_cards/product_card_vertical.dart';
-import 'package:brothers_creative/features/shop/controllers/search_controller.dart'
-    as search;
+import 'package:brothers_creative/common/widgets/images/custom_cache_image.dart';
+import 'package:brothers_creative/features/gallery/controllers/gallery_search_controller.dart';
+import 'package:brothers_creative/features/general/screens/gallery_widget.dart';
 import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:brothers_creative/utils/constants/color.dart';
 import 'package:brothers_creative/utils/constants/sizes.dart';
 import 'package:brothers_creative/utils/helpers/helper_functions.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class SearchResultsScreen extends StatelessWidget {
-  const SearchResultsScreen({super.key, this.initialQuery});
+class GallerySearchResultsScreen extends StatelessWidget {
+  const GallerySearchResultsScreen({super.key, this.initialQuery});
 
   final String? initialQuery;
 
   @override
   Widget build(BuildContext context) {
-    final searchController = Get.put(search.SearchController());
+    final searchController = Get.put(GallerySearchController());
     final isDark = THelperFunctions.isDarkMode(context);
     final isArabic = Get.locale?.languageCode == 'ar';
 
     // بدء البحث إذا كان هناك نص أولي
     if (initialQuery != null && initialQuery!.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        searchController.searchProducts(initialQuery!);
+        searchController.searchGallery(initialQuery!);
       });
     } else {
-      // اختبار وجود منتجات في قاعدة البيانات
+      // اختبار وجود صور في قاعدة البيانات
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        searchController.testProductsExist();
+        searchController.testGalleryItemsExist();
       });
     }
 
@@ -71,8 +70,8 @@ class SearchResultsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(TSizes.defaultSpace),
               child: TSearchContainer(
                 text:
-                    AppLocalizations.of(context)?.searchProducts ??
-                    'Search products...',
+                    AppLocalizations.of(context)?.searchinGallery ??
+                    'Search gallery...',
                 icon: Iconsax.search_normal,
                 showBorder: true,
                 padding: EdgeInsets.zero,
@@ -101,10 +100,6 @@ class SearchResultsScreen extends StatelessWidget {
                               ? TColors.darkGrey.withValues(alpha: 0.1)
                               : TColors.lightgrey.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(TSizes.cardRadiusMd),
-                      // border: Border.all(
-                      //   color: isDark ? TColors.darkerGray : TColors.lightgrey,
-                      //   width: 0.5,
-                      // ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -176,8 +171,6 @@ class SearchResultsScreen extends StatelessWidget {
 
             // نتائج البحث
             Obx(() {
-              // Debug information
-
               if (searchController.isLoading.value) {
                 return Center(
                   child: TAnimationLoaderWidget(
@@ -185,6 +178,7 @@ class SearchResultsScreen extends StatelessWidget {
                         AppLocalizations.of(context)?.searching ??
                         'Searching...',
                     animation: 'assets/images/lottie/processing.json',
+                    color: TColors.primary,
                   ),
                 );
               }
@@ -201,15 +195,15 @@ class SearchResultsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: TSizes.spaceBtWItems),
                       Text(
-                        AppLocalizations.of(context)?.searchForProducts ??
-                            'Search for products',
+                        AppLocalizations.of(context)?.searchinGallery ??
+                            'Search for gallery items',
                         style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: TSizes.spaceBtWItems),
                       Text(
                         AppLocalizations.of(context)?.searchFieldHint ??
-                            'Type in the search field above to find products',
+                            'Type in the search field above to find gallery items',
                         style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                         textDirection:
@@ -232,8 +226,8 @@ class SearchResultsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: TSizes.spaceBtWItems),
                       Text(
-                        AppLocalizations.of(context)?.noProductsFound ??
-                            'No products found',
+                        AppLocalizations.of(context)?.noData ??
+                            'No gallery items found',
                         style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.center,
                       ),
@@ -267,14 +261,119 @@ class SearchResultsScreen extends StatelessWidget {
                   left: TSizes.defaultSpace,
                   bottom: TSizes.spaceBtWsections,
                 ),
-                child: TGridLayout(
-                  maxAxisExtent: 300,
-
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: TSizes.gridViewSpacing,
+                    crossAxisSpacing: TSizes.gridViewSpacing,
+                    mainAxisExtent: 200,
+                  ),
                   itemCount: searchController.searchResults.length,
-                  itemBuilder:
-                      (_, index) => TProductCardVertical(
-                        product: searchController.searchResults[index],
+                  itemBuilder: (_, index) {
+                    final galleryItem = searchController.searchResults[index];
+                    return GestureDetector(
+                      onTap: () {
+                        // عرض الصورة في معرض كامل
+                        Get.to(
+                          () => GalleryWidget(
+                            urlImage:
+                                searchController.searchResults
+                                    .map((e) => e.image)
+                                    .toList(),
+                            index: index,
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            TSizes.cardRadiusMd,
+                          ),
+                          border: Border.all(
+                            color:
+                                isDark ? TColors.darkGrey : TColors.lightgrey,
+                            width: 0.5,
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // الصورة
+                            Expanded(
+                              flex: 3,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(TSizes.cardRadiusMd),
+                                  topRight: Radius.circular(
+                                    TSizes.cardRadiusMd,
+                                  ),
+                                ),
+                                child: CustomCaChedNetworkImage(
+                                  url: galleryItem.image,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  raduis: BorderRadius.circular(0),
+                                ),
+                              ),
+                            ),
+                            // النص
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(TSizes.sm),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      isArabic
+                                          ? (galleryItem.arabicName ??
+                                              galleryItem.name ??
+                                              '')
+                                          : (galleryItem.name ??
+                                              galleryItem.arabicName ??
+                                              ''),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textDirection:
+                                          isArabic
+                                              ? TextDirection.rtl
+                                              : TextDirection.ltr,
+                                    ),
+                                    if (galleryItem
+                                            .arabicDescription
+                                            ?.isNotEmpty ==
+                                        true)
+                                      Text(
+                                        galleryItem.arabicDescription!,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodySmall?.copyWith(
+                                          color:
+                                              isDark
+                                                  ? TColors.lightgrey
+                                                  : TColors.darkGrey,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        textDirection: TextDirection.rtl,
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                    );
+                  },
                 ),
               );
             }),

@@ -11,6 +11,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../controller/album_controller.dart';
 import 'widgets/album_tab.dart';
+import '../screens/gallery_search_results_screen.dart';
 
 class TGalleryScreen extends StatelessWidget {
   const TGalleryScreen({super.key});
@@ -46,9 +47,10 @@ class TGalleryScreen extends StatelessWidget {
                   automaticallyImplyLeading: false,
                   floating: false,
                   pinned: true,
-                  backgroundColor: THelperFunctions.isDarkMode(context)
-                      ? TColors.black
-                      : TColors.white,
+                  backgroundColor:
+                      THelperFunctions.isDarkMode(context)
+                          ? TColors.black
+                          : TColors.white,
                   expandedHeight: 150,
                   flexibleSpace: Padding(
                     padding: const EdgeInsets.all(TSizes.defaultSpace),
@@ -63,6 +65,16 @@ class TGalleryScreen extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           icon: Iconsax.search_normal,
                           showBackground: false,
+                          isSearchField: true,
+                          onChanged: (query) {
+                            if (query.trim().isNotEmpty) {
+                              Get.to(
+                                () => GallerySearchResultsScreen(
+                                  initialQuery: query,
+                                ),
+                              );
+                            }
+                          },
                         ),
                         // const SizedBox(height: TSizes.spaceBtWsections),
                         // TSectionHeading(
@@ -83,22 +95,25 @@ class TGalleryScreen extends StatelessWidget {
                     ),
                   ),
                   bottom: TTabbar(
-                      tabs: isEg
-                          ? albums
-                              .map((album) => Tab(child: Text(album.name)))
-                              .toList()
-                          : albums
-                              .map(
-                                  (album) => Tab(child: Text(album.arabicName)))
-                              .toList()),
-                )
+                    tabs:
+                        isEg
+                            ? albums
+                                .map((album) => Tab(child: Text(album.name)))
+                                .toList()
+                            : albums
+                                .map(
+                                  (album) => Tab(child: Text(album.arabicName)),
+                                )
+                                .toList(),
+                  ),
+                ),
               ];
             },
             // ignore: prefer_const_constructors
             body: TabBarView(
-                children: albums
-                    .map((album) => TTabGalleryView(album: album))
-                    .toList()),
+              children:
+                  albums.map((album) => TTabGalleryView(album: album)).toList(),
+            ),
           ),
         ),
       ),

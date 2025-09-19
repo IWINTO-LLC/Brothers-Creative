@@ -1,16 +1,14 @@
-import 'package:brothers_creative/common/widgets/custom_shapes/containers/rounded_container.dart';
-
+import 'dart:async';
 import 'package:brothers_creative/features/gallery/screen/gallery.dart';
 import 'package:brothers_creative/features/shop/controllers/product/cart_controller.dart';
 import 'package:brothers_creative/features/shop/controllers/product/later_list_controller.dart';
 import 'package:brothers_creative/features/shop/screens/store/store.dart';
+import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:brothers_creative/utils/constants/color.dart';
 import 'package:brothers_creative/utils/helpers/helper_functions.dart';
-import 'package:brothers_creative/utils/helpers/system_ui_helper.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
-import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'features/personlization/screens/settings/settings.dart';
@@ -38,8 +36,43 @@ class NavigationMenu extends StatelessWidget {
         body: SafeArea(
           child: WillPopScope(
             onWillPop: showExitDialog,
-            child: Obx(
-              () => controller.screens[controller.selectedIndex.value],
+            child: Stack(
+              children: [
+                Obx(() => controller.screens[controller.selectedIndex.value]),
+                // رسالة الخروج الناعمة
+                Obx(
+                  () =>
+                      controller._showExitMessage.value
+                          ? Positioned(
+                            bottom: 50,
+                            left: 20,
+                            right: 20,
+                            child: Center(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 12,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.8),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Text(
+                                  Get.locale?.languageCode == 'en'
+                                      ? 'Press back again to exit'
+                                      : 'اضغط مرة أخرى للخروج',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          : const SizedBox.shrink(),
+                ),
+              ],
             ),
           ),
         ),
@@ -102,81 +135,7 @@ class NavigationMenu extends StatelessWidget {
       NavigationController.instance.selectedIndex.value = 0;
       return false;
     } else {
-      return await showDialog(
-        context: Get.context!,
-        builder:
-            (context) => AlertDialog(
-              backgroundColor:
-                  THelperFunctions.isDarkMode(context)
-                      ? Colors.black
-                      : TColors.light,
-              title: Text(
-                AppLocalizations.of(context)!.exitApp,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              content: Text(
-                AppLocalizations.of(context)!.doYouWantToExit,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              actions: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: TRoundedContainer(
-                    showBorder: true,
-                    radius: BorderRadius.circular(100),
-                    borderColor: TColors.primary,
-                    backgroundColor: TColors.primary,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 5,
-                        horizontal: 30,
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!.no,
-                        style: Theme.of(context).textTheme.headlineSmall!
-                            .copyWith(color: TColors.white),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // Text(
-                //   AppLocalizations.of(context)!.no,
-                //   style: Theme.of(context)
-                //       .textTheme
-                //       .headlineSmall!
-                //       .apply(color: TColors.white),
-                // )
-                // ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: TRoundedContainer(
-                    showBorder: true,
-                    radius: BorderRadius.circular(100),
-                    borderColor: TColors.primary,
-                    backgroundColor:
-                        THelperFunctions.isDarkMode(context)
-                            ? TColors.dark
-                            : TColors.light,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 5,
-                        horizontal: 20,
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!.yes,
-                        style: Theme.of(context).textTheme.headlineSmall!,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-      );
+      return NavigationController.instance.handleBackPress();
     }
   }
 }
@@ -185,8 +144,44 @@ class NavigationController extends GetxController {
   static NavigationController get instance => Get.find();
   final Rx<int> selectedIndex = 0.obs;
 
+  // متغيرات للضغط المزدوج
+  DateTime? _lastBackPressed;
+  final RxBool _showExitMessage = false.obs;
+  Timer? _exitMessageTimer;
+
   void updateSelectedIndex(int index) {
     selectedIndex.value = index;
+  }
+
+  // دالة للتعامل مع الضغط المزدوج
+  bool handleBackPress() {
+    if (_showExitMessage.value) {
+      return true; // الخروج من التطبيق
+    }
+
+    final now = DateTime.now();
+    if (_lastBackPressed == null ||
+        now.difference(_lastBackPressed!) > const Duration(seconds: 1)) {
+      _lastBackPressed = now;
+      _showExitMessage.value = true;
+      _showExitMessageTimer();
+      return false; // عدم الخروج
+    }
+
+    return true; // الخروج من التطبيق
+  }
+
+  void _showExitMessageTimer() {
+    _exitMessageTimer?.cancel();
+    _exitMessageTimer = Timer(const Duration(seconds: 2), () {
+      _showExitMessage.value = false;
+    });
+  }
+
+  @override
+  void onClose() {
+    _exitMessageTimer?.cancel();
+    super.onClose();
   }
 
   final screens = [

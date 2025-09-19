@@ -4,14 +4,13 @@ import 'package:brothers_creative/common/widgets/layout/grid_layout.dart';
 import 'package:brothers_creative/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:brothers_creative/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:brothers_creative/features/shop/controllers/product/favorites_controller.dart';
+import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:brothers_creative/navigation_menu.dart';
-import 'package:brothers_creative/utils/constants/color.dart';
 import 'package:brothers_creative/utils/constants/sizes.dart';
 import 'package:brothers_creative/utils/helpers/cloud_helper_function.dart';
 import 'package:brothers_creative/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:brothers_creative/l10n/app_localizations.dart';
 import 'package:iconsax/iconsax.dart';
 
 class FavoriteScreen extends StatelessWidget {

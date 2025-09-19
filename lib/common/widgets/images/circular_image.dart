@@ -8,7 +8,7 @@ import 'package:brothers_creative/utils/constants/color.dart';
 
 class TCircularImage extends StatelessWidget {
   const TCircularImage({
-    Key? key,
+    super.key,
     this.width = 56,
     this.height = 56,
     this.fit = BoxFit.cover,
@@ -17,7 +17,7 @@ class TCircularImage extends StatelessWidget {
     this.padding = 1,
     this.overLayColor,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   final BoxFit? fit;
   final String image;
@@ -29,36 +29,41 @@ class TCircularImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: width,
-        height: height,
-        padding: EdgeInsets.all(padding),
-        decoration: BoxDecoration(
-            color: backgroundColor ??
-                (THelperFunctions.isDarkMode(context)
-                    ? TColors.black
-                    : TColors.white),
-            borderRadius: BorderRadius.circular(100)),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: Center(
-            child: isNetworkImage
-                ? CachedNetworkImage(
+      width: width,
+      height: height,
+      padding: EdgeInsets.all(padding),
+      decoration: BoxDecoration(
+        color:
+            backgroundColor ??
+            (THelperFunctions.isDarkMode(context)
+                ? TColors.black
+                : TColors.white),
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: Center(
+          child:
+              isNetworkImage
+                  ? CachedNetworkImage(
                     fit: fit,
                     color: overLayColor,
                     imageUrl: image,
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) => ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child:
-                                const TShimmerEffect(width: 80, height: 800)),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error))
-                : Image(
+                          borderRadius: BorderRadius.circular(100),
+                          child: const TShimmerEffect(width: 80, height: 800),
+                        ),
+                    errorWidget:
+                        (context, url, error) => const Icon(Icons.error),
+                  )
+                  : Image(
                     color: overLayColor,
                     fit: fit,
                     image: AssetImage(image),
                   ),
-          ),
-        ));
+        ),
+      ),
+    );
   }
 }

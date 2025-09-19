@@ -11,10 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TTabGalleryView extends StatelessWidget {
-  const TTabGalleryView({
-    super.key,
-    required this.album,
-  });
+  const TTabGalleryView({super.key, required this.album});
   final AlbumModel album;
   @override
   Widget build(BuildContext context) {
@@ -43,84 +40,80 @@ class TTabGalleryView extends StatelessWidget {
               //   showActionButton: true,
               //   onPress: () {},
               // ),
-              const SizedBox(
-                height: TSizes.spaceBtWItems,
-              ),
+              const SizedBox(height: TSizes.spaceBtWItems),
               FutureBuilder(
-                  future: controller.getGalleryAlbum(albumId: album.id),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const TGalleryPhotoShimmer(
-                        itemCount: 4,
-                      );
-                    }
-                    if (!snapshot.hasData ||
-                        snapshot.data == null ||
-                        snapshot.data!.isEmpty) {
-                      return Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.noData,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      );
-                    }
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.somethingWentWrong,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      );
-                    }
-                    final photos = snapshot.data!;
-                    if (photos.isEmpty) {
-                      return Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.noData,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      );
-                    }
+                future: controller.getGalleryAlbum(albumId: album.id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const TGalleryPhotoShimmer(itemCount: 4);
+                  }
+                  if (!snapshot.hasData ||
+                      snapshot.data == null ||
+                      snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.noData,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.somethingWentWrong,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    );
+                  }
+                  final photos = snapshot.data!;
+                  if (photos.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.noData,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    );
+                  }
 
-                    return TGridGalleryLayout(
-                        itemCount: photos.length,
-                        maxAxisExtent: THelperFunctions.screenwidth() / 1.7,
-                        itemBuilder: (_, index) => GestureDetector(
-                            onTap: () => Get.to(GalleryWidget(
-                                urlImage: photos.map((e) => e.image).toList(),
-                                index: index)),
+                  return TGridGalleryLayout(
+                    itemCount: photos.length,
+                    maxAxisExtent: THelperFunctions.screenwidth() / 1.7,
+                    itemBuilder:
+                        (_, index) => GestureDetector(
+                          onTap:
+                              () => Get.to(
+                                GalleryWidget(
+                                  urlImage: photos.map((e) => e.image).toList(),
+                                  index: index,
+                                ),
+                              ),
 
-                            //  imageController.showEnLargedImage(
-                            //     photos[index].image,
-                            //     Get.locale?.languageCode == 'en'
-                            //         ? photos[index].name ?? ""
-                            //         : photos[index].arabicName ?? "",
-                            //     Get.locale?.languageCode == 'en'
-                            //         ? photos[index].description ?? ""
-                            //         : photos[index].arabicDescription ?? ""),
-                            child: CustomCaChedNetworkImage(
-                                fit: BoxFit.fitWidth,
-                                width: THelperFunctions.screenwidth() -
-                                    TSizes.defaultSpace * 2,
-                                height: THelperFunctions.screenwidth(),
-                                url: photos[index].image,
-                                raduis: BorderRadius.circular(20))
+                          child: CustomCaChedNetworkImage(
+                            fit: BoxFit.fill,
 
-                            //  TRoundedImage(
-                            //   borderRaduis: BorderRadius.circular(20),
-                            //   imageUrl: photos[index].image,
-                            //   // width: 100,
-                            //   fit: BoxFit.cover,
-                            //   isNetworkImage: true,
-                            //   width: THelperFunctions.screenwidth() -
-                            //       TSizes.defaultSpace * 2,
-                            //   height: THelperFunctions.screenwidth() / 2,
-                            // ),
-                            ));
-                  }),
-              const SizedBox(
-                height: TSizes.spaceBtWsections,
+                            width:
+                                THelperFunctions.screenwidth() -
+                                TSizes.defaultSpace * 2,
+                            url: photos[index].image,
+                            raduis: BorderRadius.circular(20),
+                            height: THelperFunctions.screenwidth() / 1.7,
+                          ),
+
+                          //  TRoundedImage(
+                          //   borderRaduis: BorderRadius.circular(20),
+                          //   imageUrl: photos[index].image,
+                          //   // width: 100,
+                          //   fit: BoxFit.cover,
+                          //   isNetworkImage: true,
+                          //   width: THelperFunctions.screenwidth() -
+                          //       TSizes.defaultSpace * 2,
+                          //   height: THelperFunctions.screenwidth() / 2,
+                          // ),
+                        ),
+                  );
+                },
               ),
+              const SizedBox(height: TSizes.spaceBtWsections),
             ],
           ),
         ),
