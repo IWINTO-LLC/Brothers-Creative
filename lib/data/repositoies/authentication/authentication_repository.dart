@@ -15,6 +15,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -313,6 +314,75 @@ class AuthenticationRepository extends GetxController {
         print('Error type: ${e.runtimeType}');
       }
       throw 'Something wrong: $e';
+    }
+  }
+
+  Future<UserCredential?> signInWithApple() async {
+    try {
+      // عرض شاشة التحميل
+      TFullScreenLoader.openloadingDialog(
+        'جاري تحضير تسجيل الدخول بـ Apple...',
+        TImages.proccessLottie,
+        color:
+            THelperFunctions.isDarkMode(Get.context!)
+                ? Colors.white
+                : Colors.black,
+      );
+
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        accessToken: appleCredential.authorizationCode,
+      );
+
+      //sign in to firebase
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(
+        oauthCredential,
+      );
+      TFullScreenLoader.stopLoading();
+      isGust.value = false;
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      TFullScreenLoader.stopLoading();
+      if (kDebugMode) {
+        print(
+          'FirebaseAuthException during Google sign in: ${e.code} - ${e.message}',
+        );
+      }
+      throw (e.code).toString();
+    } on FirebaseException catch (e) {
+      TFullScreenLoader.stopLoading();
+      if (kDebugMode) {
+        print(
+          'FirebaseException during Google sign in: ${e.code} - ${e.message}',
+        );
+      }
+      throw (e.code).toString();
+    } on FormatException catch (e) {
+      TFullScreenLoader.stopLoading();
+      if (kDebugMode) {
+        print('FormatException during Google sign in: $e');
+      }
+      throw 'Authentication format error';
+    } on Platform catch (e) {
+      TFullScreenLoader.stopLoading();
+      if (kDebugMode) {
+        print('Platform Exception during Google sign in: $e');
+      }
+      throw e.toString();
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      if (kDebugMode) {
+        print('Unknown error during Google sign in: $e');
+        print('Error type: ${e.runtimeType}');
+      }
+      throw 'Google sign in failed: $e';
     }
   }
 

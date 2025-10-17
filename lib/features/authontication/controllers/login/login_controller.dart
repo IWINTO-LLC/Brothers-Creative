@@ -132,4 +132,41 @@ class LoginController extends GetxController {
       TLoader.erroreSnackBar(title: 'Sign In Error', message: e.toString());
     }
   }
+
+  Future<void> appleSignIn() async {
+    try {
+      TFullScreenLoader.openloadingDialog(
+        'Logging you in with Appple ...',
+        TImages.proccessLottie,
+        color:
+            THelperFunctions.isDarkMode(Get.context!)
+                ? Colors.white
+                : Colors.black,
+      );
+
+      final userCredentials = await AuthenticationRepository.instance
+          .signInWithApple(Get.context!);
+
+      if (userCredentials != null) {
+        await userController.saveUserRecord(userCredentials);
+        TFullScreenLoader.stopLoading();
+        // يمكن إضافة رسالة نجاح هنا
+
+        // انتقال مباشر للواجهة الرئيسية كضمان إضافي
+        Get.offAll(() => const NavigationMenu());
+      } else {
+        TFullScreenLoader.stopLoading();
+        TLoader.erroreSnackBar(
+          title: 'Sign In Failed',
+          message: 'Apple sign in was cancelled or failed',
+        );
+      }
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      if (kDebugMode) {
+        print('Google Sign In error: $e');
+      }
+      TLoader.erroreSnackBar(title: 'Sign In Error', message: e.toString());
+    }
+  }
 }
