@@ -197,8 +197,9 @@ class AddNewAddressScreen extends StatelessWidget {
                     const SizedBox(height: TSizes.spaceBtwInputFields),
 
                     Obx(() {
-                      if (controller.currentAddress.isEmpty)
+                      if (controller.currentAddress.isEmpty) {
                         return const SizedBox();
+                      }
                       return Row(
                         children: [
                           Icon(Icons.my_location),
@@ -206,7 +207,7 @@ class AddNewAddressScreen extends StatelessWidget {
                           SizedBox(
                             width: THelperFunctions.screenwidth() - 70,
                             child: Text(
-                              '${controller.currentAddress.value}',
+                              controller.currentAddress.value,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: TColors.darkerGray,

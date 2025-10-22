@@ -7,24 +7,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class TFavoriteIcon extends StatelessWidget {
-  const TFavoriteIcon({
-    Key? key,
-    required this.productId,
-  }) : super(key: key);
+  const TFavoriteIcon({super.key, required this.productId});
   final String productId;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(FavoriteController());
-    return Obx(() => TCircularIcon(
-          backgroundColor: Colors.transparent,
-          size: 25,
-          icon: controller.isFavorites(productId)
-              ? CupertinoIcons.heart_fill //Icons.favorite
-              : CupertinoIcons.heart,
-          color:
-              controller.isFavorites(productId) ? TColors.error : Colors.black,
-          onPressed: () => controller.toggleFavoriteProduct(productId),
-        ));
+    return Obx(
+      () => TCircularIcon(
+        backgroundColor: Colors.transparent,
+        size: 25,
+        icon:
+            controller.isFavorites(productId)
+                ? CupertinoIcons
+                    .heart_fill //Icons.favorite
+                : CupertinoIcons.heart,
+        color: controller.isFavorites(productId) ? TColors.error : Colors.black,
+        onPressed: () => controller.toggleFavoriteProduct(productId),
+      ),
+    );
   }
 }

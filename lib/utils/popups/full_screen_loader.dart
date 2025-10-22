@@ -6,12 +6,9 @@ import 'package:get/get.dart';
 
 class TFullScreenLoader {
   static void openloadingDialog(String text, String animation, {Color? color}) {
-    if (color == null) {
-      color =
-          THelperFunctions.isDarkMode(Get.context!)
+    color ??= THelperFunctions.isDarkMode(Get.context!)
               ? Colors.white
               : Colors.black;
-    }
 
     showDialog(
       context: Get.overlayContext!,

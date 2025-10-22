@@ -113,25 +113,7 @@ class TSystemUIHelper {
   }
 
   /// اختبار النمط الحالي وإظهار معلومات التشخيص
-  static void debugCurrentMode(BuildContext context) {
-    final themeBrightness = Theme.of(context).brightness;
-    final mediaQueryBrightness = MediaQuery.of(context).platformBrightness;
-    final isDark =
-        mediaQueryBrightness == Brightness.dark ||
-        themeBrightness == Brightness.dark;
-
-    print('🔍 === SystemUI Debug Info ===');
-    print('   Theme Brightness: $themeBrightness');
-    print('   MediaQuery Brightness: $mediaQueryBrightness');
-    print('   Final Is Dark: $isDark');
-    print('   StatusBar Icons: ${isDark ? "LIGHT (WHITE)" : "DARK (BLACK)"}');
-    print('   Navigation Icons: ${isDark ? "LIGHT (WHITE)" : "DARK (BLACK)"}');
-    print('   Current Theme: ${Theme.of(context).brightness}');
-    print(
-      '   Platform Brightness: ${MediaQuery.of(context).platformBrightness}',
-    );
-    print('==============================');
-  }
+  static void debugCurrentMode(BuildContext context) {}
 
   /// إجبار تطبيق النمط المظلم
   static void forceDarkMode() {

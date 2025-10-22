@@ -1,21 +1,17 @@
-import 'package:brothers_creative/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:brothers_creative/common/widgets/custom_shapes/containers/circuler_container.dart';
+import 'package:brothers_creative/common/widgets/shimmers/shimmer.dart';
+import 'package:brothers_creative/features/gallery/controller/gallery_controller.dart';
+import 'package:brothers_creative/l10n/app_localizations.dart';
+import 'package:brothers_creative/utils/constants/color.dart';
+import 'package:brothers_creative/utils/constants/sizes.dart';
 import 'package:brothers_creative/utils/helpers/helper_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:brothers_creative/l10n/app_localizations.dart';
-import 'package:brothers_creative/common/widgets/custom_shapes/containers/circuler_container.dart';
-import 'package:brothers_creative/common/widgets/images/rounded_image.dart';
-import 'package:brothers_creative/common/widgets/shimmers/shimmer.dart';
-import 'package:brothers_creative/features/gallery/controller/gallery_controller.dart';
-import 'package:brothers_creative/utils/constants/color.dart';
-import 'package:brothers_creative/utils/constants/image_strings.dart';
-import 'package:brothers_creative/utils/constants/sizes.dart';
 
 class TGallerySlider extends StatelessWidget {
-  const TGallerySlider({Key? key, this.autoPlay = true}) : super(key: key);
+  const TGallerySlider({super.key, this.autoPlay = true});
 
   final bool autoPlay;
   @override

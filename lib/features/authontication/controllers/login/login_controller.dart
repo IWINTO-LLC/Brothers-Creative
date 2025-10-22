@@ -135,17 +135,8 @@ class LoginController extends GetxController {
 
   Future<void> appleSignIn() async {
     try {
-      TFullScreenLoader.openloadingDialog(
-        'Logging you in with Appple ...',
-        TImages.proccessLottie,
-        color:
-            THelperFunctions.isDarkMode(Get.context!)
-                ? Colors.white
-                : Colors.black,
-      );
-
-      final userCredentials = await AuthenticationRepository.instance
-          .signInWithApple(Get.context!);
+      final userCredentials =
+          await AuthenticationRepository.instance.signInWithApple();
 
       if (userCredentials != null) {
         await userController.saveUserRecord(userCredentials);
@@ -164,7 +155,7 @@ class LoginController extends GetxController {
     } catch (e) {
       TFullScreenLoader.stopLoading();
       if (kDebugMode) {
-        print('Google Sign In error: $e');
+        print('Apple Sign In error: $e');
       }
       TLoader.erroreSnackBar(title: 'Sign In Error', message: e.toString());
     }

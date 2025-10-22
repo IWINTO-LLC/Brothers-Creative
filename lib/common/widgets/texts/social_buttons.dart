@@ -59,7 +59,7 @@ class TSocialButtons extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () => controller.appleSignIn(),
                     child: SvgPicture.asset(
                       width: 35,
                       height: 35,

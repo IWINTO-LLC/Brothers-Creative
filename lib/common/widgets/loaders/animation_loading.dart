@@ -5,14 +5,14 @@ import 'package:lottie/lottie.dart';
 
 class TAnimationLoaderWidget extends StatelessWidget {
   const TAnimationLoaderWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.animation,
     this.showAction = false,
     this.actionText,
     this.onActionPressed,
     this.color,
-  }) : super(key: key);
+  });
 
   final String text;
   final String animation;

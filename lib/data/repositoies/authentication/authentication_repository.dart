@@ -329,6 +329,10 @@ class AuthenticationRepository extends GetxController {
                 : Colors.black,
       );
 
+      if (kDebugMode) {
+        print("Step 1: Requesting Apple ID credentials");
+      }
+
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
@@ -336,23 +340,59 @@ class AuthenticationRepository extends GetxController {
         ],
       );
 
+      if (kDebugMode) {
+        print("Step 2: Got Apple credentials");
+      }
+
       final oauthCredential = OAuthProvider("apple.com").credential(
         idToken: appleCredential.identityToken,
         accessToken: appleCredential.authorizationCode,
       );
 
-      //sign in to firebase
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(
-        oauthCredential,
-      );
+      if (kDebugMode) {
+        print("Step 3: Created Firebase credential");
+      }
+
+      final userCredential = await _auth.signInWithCredential(oauthCredential);
+
+      final user = userCredential.user;
+      if (user != null) {
+        if (kDebugMode) {
+          print(
+            "Step 4: Successfully signed in to Firebase - ${user.email ?? user.uid}",
+          );
+        }
+
+        isGust.value = false;
+        TFullScreenLoader.stopLoading();
+        return userCredential;
+      } else {
+        TFullScreenLoader.stopLoading();
+        throw FirebaseAuthException(
+          code: 'null-user',
+          message: 'لم يتم استرجاع بيانات المستخدم',
+        );
+      }
+    } on SignInWithAppleAuthorizationException catch (e) {
       TFullScreenLoader.stopLoading();
-      isGust.value = false;
-      return userCredential;
+      if (kDebugMode) {
+        print(
+          'SignInWithAppleAuthorizationException: ${e.code} - ${e.message}',
+        );
+      }
+      if (e.code == AuthorizationErrorCode.canceled) {
+        // المستخدم ألغى العملية
+        if (kDebugMode) {
+          print("Apple Sign In was cancelled by user");
+        }
+        return null;
+      }
+      throw 'فشل تسجيل الدخول عبر Apple: ${e.message}';
     } on FirebaseAuthException catch (e) {
       TFullScreenLoader.stopLoading();
       if (kDebugMode) {
         print(
-          'FirebaseAuthException during Google sign in: ${e.code} - ${e.message}',
+          'FirebaseAuthException during Apple sign in: ${e.code} - ${e.message}',
         );
       }
       throw (e.code).toString();
@@ -360,29 +400,29 @@ class AuthenticationRepository extends GetxController {
       TFullScreenLoader.stopLoading();
       if (kDebugMode) {
         print(
-          'FirebaseException during Google sign in: ${e.code} - ${e.message}',
+          'FirebaseException during Apple sign in: ${e.code} - ${e.message}',
         );
       }
       throw (e.code).toString();
     } on FormatException catch (e) {
       TFullScreenLoader.stopLoading();
       if (kDebugMode) {
-        print('FormatException during Google sign in: $e');
+        print('FormatException during Apple sign in: $e');
       }
       throw 'Authentication format error';
     } on Platform catch (e) {
       TFullScreenLoader.stopLoading();
       if (kDebugMode) {
-        print('Platform Exception during Google sign in: $e');
+        print('Platform Exception during Apple sign in: $e');
       }
       throw e.toString();
     } catch (e) {
       TFullScreenLoader.stopLoading();
       if (kDebugMode) {
-        print('Unknown error during Google sign in: $e');
+        print('Unknown error during Apple sign in: $e');
         print('Error type: ${e.runtimeType}');
       }
-      throw 'Google sign in failed: $e';
+      throw 'Apple sign in failed: $e';
     }
   }
 
@@ -423,16 +463,8 @@ class AuthenticationRepository extends GetxController {
       }
 
       // Obtain the auth details from the request.
-      final GoogleSignInAuthentication? googleAuth =
+      final GoogleSignInAuthentication googleAuth =
           await userAccount.authentication;
-
-      if (googleAuth == null) {
-        TFullScreenLoader.stopLoading();
-        if (kDebugMode) {
-          print("Failed to get Google authentication");
-        }
-        throw 'Failed to authenticate with Google';
-      }
 
       if (kDebugMode) {
         print("Step 2: Got Google authentication tokens");

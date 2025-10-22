@@ -15,10 +15,10 @@ import 'add_remove_button.dart';
 
 class TCartItem extends StatelessWidget {
   const TCartItem({
-    Key? key,
+    super.key,
     required this.cartItem,
     this.showAddRemoveButtons = false,
-  }) : super(key: key);
+  });
   final CartItemModel cartItem;
   final bool? showAddRemoveButtons;
   @override

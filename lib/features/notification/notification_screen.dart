@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:brothers_creative/l10n/app_localizations.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({Key? key}) : super(key: key);
+  const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,10 @@ class NotificationScreen extends StatelessWidget {
     //final isEg = Get.locale?.languageCode == 'en';
     //final controller = BrandController.instance;
     return Directionality(
-      textDirection: Get.locale?.languageCode == 'en'
-          ? TextDirection.ltr
-          : TextDirection.rtl,
+      textDirection:
+          Get.locale?.languageCode == 'en'
+              ? TextDirection.ltr
+              : TextDirection.rtl,
       child: Scaffold(
         appBar: TAppBar(
           onbackPress: () => Get.to(() => const NavigationMenu()),
@@ -53,30 +54,23 @@ class NotificationScreen extends StatelessWidget {
                         '${argument.notification?.title}',
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                      const SizedBox(
-                        height: TSizes.spaceBtwInputFields,
-                      ),
+                      const SizedBox(height: TSizes.spaceBtwInputFields),
                       Text(
                         '${argument.notification?.body}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(message.title),
-                      // Text('value: ${message.value}'),
 
-                      const SizedBox(
-                        height: TSizes.spaceBtwInputFields,
-                      ),
+                      // Text('value: ${message.value}'),
+                      const SizedBox(height: TSizes.spaceBtwInputFields),
                       Text(message.text),
-                      const SizedBox(
-                        height: TSizes.spaceBtwInputFields,
-                      ),
+                      const SizedBox(height: TSizes.spaceBtwInputFields),
                       TRoundedImage(
-                          borderRaduis: BorderRadius.circular(20),
-                          imageUrl: message.image,
-                          isNetworkImage: true),
-                      const SizedBox(
-                        height: TSizes.spaceBtwInputFields,
+                        borderRaduis: BorderRadius.circular(20),
+                        imageUrl: message.image,
+                        isNetworkImage: true,
                       ),
+                      const SizedBox(height: TSizes.spaceBtwInputFields),
                     ],
                   ),
                 ),
@@ -94,11 +88,12 @@ class MessageModel {
   String text;
   String title;
   String value;
-  MessageModel(
-      {required this.image,
-      required this.text,
-      required this.title,
-      required this.value});
+  MessageModel({
+    required this.image,
+    required this.text,
+    required this.title,
+    required this.value,
+  });
 
   static MessageModel empty() =>
       MessageModel(image: '', text: '', title: '', value: '');

@@ -11,11 +11,11 @@ import 'package:brothers_creative/utils/helpers/helper_functions.dart';
 
 class TBrandCard extends StatelessWidget {
   const TBrandCard({
-    Key? key,
+    super.key,
     required this.showBorder,
     required this.brand,
     this.onTap,
-  }) : super(key: key);
+  });
   final BrandModel brand;
   final bool showBorder;
 

@@ -13,10 +13,7 @@ import 'package:brothers_creative/utils/constants/sizes.dart';
 //import 'package:brothers_creative/utils/helpers/helper_functions.dart';
 
 class TBottomAddToCart extends StatelessWidget {
-  const TBottomAddToCart({
-    Key? key,
-    required this.product,
-  }) : super(key: key);
+  const TBottomAddToCart({super.key, required this.product});
   final ProductModel product;
   @override
   Widget build(BuildContext context) {
@@ -28,20 +25,23 @@ class TBottomAddToCart extends StatelessWidget {
       () => TRoundedContainer(
         radius: BorderRadius.circular(20),
         showBorder: true,
-        backgroundColor: THelperFunctions.isDarkMode(context)
-            ? TColors.black.withValues(alpha: 0.9)
-            : TColors.light.withValues(alpha: 0.9),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Row(
-            children: [
-              TCircularIcon(
+        backgroundColor:
+            THelperFunctions.isDarkMode(context)
+                ? TColors.black.withValues(alpha: 0.9)
+                : TColors.light.withValues(alpha: 0.9),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                TCircularIcon(
                   icon: Iconsax.minus,
                   width: 40,
                   height: 40,
-                  color: THelperFunctions.isDarkMode(context)
-                      ? TColors.white
-                      : TColors.black,
+                  color:
+                      THelperFunctions.isDarkMode(context)
+                          ? TColors.white
+                          : TColors.black,
                   backgroundColor: Colors.transparent,
                   onPressed: () {
                     if (controller.productQuantityinCart.value >= 1) {
@@ -49,51 +49,50 @@ class TBottomAddToCart extends StatelessWidget {
 
                       controller.addToCart(product);
                     }
-                  }),
-              const SizedBox(
-                width: TSizes.spaceBtWItems / 2,
-              ),
-              Text(
-                controller.productQuantityinCart.value.toString(),
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const SizedBox(
-                width: TSizes.spaceBtWItems / 2,
-              ),
-              TCircularIcon(
-                icon: Iconsax.add,
-                width: 40,
-                height: 40,
-                color: THelperFunctions.isDarkMode(context)
-                    ? TColors.white
-                    : TColors.black,
-                backgroundColor: Colors.transparent,
-                onPressed: () {
-                  controller.productQuantityinCart.value += 1;
-                  controller.addToCart(product);
-                },
-              ),
-            ],
-          ),
-          // Visibility(
-          //   visible: false,
-          //   child: ElevatedButton(
-          //       onPressed: controller.productQuantityinCart.value < 1
-          //           ? null
-          //           : () => controller.addToCart(product),
-          //       style: ElevatedButton.styleFrom(
-          //           backgroundColor: TColors.black,
-          //           side: const BorderSide(color: TColors.black),
-          //           padding: const EdgeInsets.all(TSizes.md)),
-          //       child: Text(
-          //         AppLocalizations.of(context)!.addToCart,
-          //         style: Theme.of(context)
-          //             .textTheme
-          //             .titleMedium!
-          //             .apply(color: TColors.white),
-          //       )),
-          // )
-        ]),
+                  },
+                ),
+                const SizedBox(width: TSizes.spaceBtWItems / 2),
+                Text(
+                  controller.productQuantityinCart.value.toString(),
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const SizedBox(width: TSizes.spaceBtWItems / 2),
+                TCircularIcon(
+                  icon: Iconsax.add,
+                  width: 40,
+                  height: 40,
+                  color:
+                      THelperFunctions.isDarkMode(context)
+                          ? TColors.white
+                          : TColors.black,
+                  backgroundColor: Colors.transparent,
+                  onPressed: () {
+                    controller.productQuantityinCart.value += 1;
+                    controller.addToCart(product);
+                  },
+                ),
+              ],
+            ),
+            // Visibility(
+            //   visible: false,
+            //   child: ElevatedButton(
+            //       onPressed: controller.productQuantityinCart.value < 1
+            //           ? null
+            //           : () => controller.addToCart(product),
+            //       style: ElevatedButton.styleFrom(
+            //           backgroundColor: TColors.black,
+            //           side: const BorderSide(color: TColors.black),
+            //           padding: const EdgeInsets.all(TSizes.md)),
+            //       child: Text(
+            //         AppLocalizations.of(context)!.addToCart,
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .titleMedium!
+            //             .apply(color: TColors.white),
+            //       )),
+            // )
+          ],
+        ),
       ),
     );
   }

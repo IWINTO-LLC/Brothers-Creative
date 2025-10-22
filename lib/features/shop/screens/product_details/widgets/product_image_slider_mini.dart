@@ -88,7 +88,7 @@ class TProductImageSliderMini extends StatelessWidget {
                     .toList(),
           ),
         ),
-        if (product.images!.length > 0)
+        if (product.images!.isNotEmpty)
           Positioned(
             bottom: 12,
             left: 4,

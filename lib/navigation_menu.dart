@@ -54,7 +54,7 @@ class NavigationMenu extends StatelessWidget {
                                   vertical: 12,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.8),
+                                  color: Colors.black.withValues(alpha: 0.8),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: Text(

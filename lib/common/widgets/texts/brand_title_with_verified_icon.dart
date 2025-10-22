@@ -8,15 +8,15 @@ import 'package:brothers_creative/utils/constants/color.dart';
 import 'package:brothers_creative/utils/constants/sizes.dart';
 
 class TBrandTitleWithVerifiedIcon extends StatelessWidget {
-  const TBrandTitleWithVerifiedIcon(
-      {Key? key,
-      this.title = " ",
-      this.textColor,
-      this.maxLines = 1,
-      this.iconColor = TColors.primary,
-      this.textAlign = TextAlign.center,
-      this.brandTextSize = TextSizes.small})
-      : super(key: key);
+  const TBrandTitleWithVerifiedIcon({
+    super.key,
+    this.title = " ",
+    this.textColor,
+    this.maxLines = 1,
+    this.iconColor = TColors.primary,
+    this.textAlign = TextAlign.center,
+    this.brandTextSize = TextSizes.small,
+  });
 
   final String title;
   final int maxLines;
@@ -30,19 +30,16 @@ class TBrandTitleWithVerifiedIcon extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Flexible(
-            child: TBrandTitleText(
-          title: title,
-          color: textColor,
-          maxLines: maxLines,
-          textAlign: textAlign,
-          brandTextSize: brandTextSize,
-        )),
+          child: TBrandTitleText(
+            title: title,
+            color: textColor,
+            maxLines: maxLines,
+            textAlign: textAlign,
+            brandTextSize: brandTextSize,
+          ),
+        ),
         const SizedBox(height: TSizes.xs),
-        const Icon(
-          Iconsax.verify5,
-          color: TColors.primary,
-          size: 20,
-        )
+        const Icon(Iconsax.verify5, color: TColors.primary, size: 20),
       ],
     );
   }
